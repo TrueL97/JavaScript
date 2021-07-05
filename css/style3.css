@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+ul{
+    list-style: none; /*li 점 없앰*/
+    width: 250px;
+    margin:0 auto; /*가운데로 오게함*/
+}
+
+body {
+    height: 100%;
+    overflow: hidden; /*스크롤 없앰*/
+}
+
+.score {
+    text-align: center;
+    font-size :36px;
+    margin-bottom: 2rem; /*상대적인 크기정함 */ 
+}
+
+.playground > ul{ /*playground안에 들어있는 ul에 적용*/
+    border :1px solid #333; 
+}
+
+.playground > ul > li {
+    width: 100%;
+    height: 25px;
+}
+
+.playground > ul > li >ul{
+    display: flex; /*li를 가로로 나열*/
+}
+
+.playground >ul >li > ul > li {
+    width: 25px;
+    height: 25px;
+    outline: 1px solid #ccc; /*테트리스 네모*/
+}
+
+.tree{
+    background: #67c23a;
+}

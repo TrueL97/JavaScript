@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="7.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Shadows+Into+Light&display=swap" rel="stylesheet">    <title>Youtube</title>
+    
+    <script src="https://kit.fontawesome.com/2f8bfea01c.js" crossorigin="anonymous"></script>
+    <!-- <script src="7.js"defer></script> head앞에 사용하고 싶을때는 defer사용해서 html이 로딩되게함 -->
+    <script src="7.js" defer></script>
+</head>
+<body>
+    <header>
+        <!-- Header -->
+         <div class="logo">
+             <i class="fab fa-youtube"></i>
+             <span class="title">Youtube</span>
+         </div>
+        <div class="icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-ellipsis-v"></i>
+
+        </div>
+    </header>
+
+    <!-- video player -->
+    <section class="player">
+        <!-- <video controls autoplay src="https://www.youtube.com/embed/3q2lZusQaJ4"></video> -->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/3q2lZusQaJ4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </section>
+   
+    <div class=".infoAndUpNext">
+        <!-- info 와 upNext클래스가 같이 반응형으로 되야하기 때문에 같은 박스에다 넣음 -->
+        <section class="info">
+        <div class="metadata">
+            <ul class="hashtags">
+                <li>#A</li>
+                <li>#B</li>
+                <li>#C</li>
+                
+            </ul>
+            <div class="titleAndButton">
+                <span class="title clamp"
+                >[로스트아크ㅣOST]  06_별빛 등대의 섬(Star Light Island) / LOST ARK Soundtrack (Vol.2 In-Game Track) [로스트아크ㅣOST]  06_별빛 등대의 섬(Star Light Island) / LOST ARK Soundtrack (Vol.2 In-Game Track)[로스트아크ㅣOST]  06_별빛 등대의 섬(Star Light Island) / LOST ARK Soundtrack (Vol.2 In-Game Track)
+            </span>
+                <button class="moreBtn" >
+                    <i class="fas fa-sort-down"></i>
+                </button>
+            </div>
+            <span class="views">1M views 1 month ago </span>
+
+            
+        </div>
+        <ul class="actions">
+            <li><button><i class="active fas fa-thumbs-up">1K</i></button></li>
+            <li><button><i class="fas fa-thumbs-down">0</i></button></li>
+            <li><button><i class="fas fa-share"></i>Share</button></li>
+            <li><button><i class="fas fa-plus"></i>Save</button></li>
+            <li><button><i class="fas fa-flag"></i>Report</button></li>
+        </ul>
+        <!-- channel description -->
+        <div class="channel">
+            <div class="metadata">
+                <img src="../images/mokoko.gif"/>
+                <div class="info">
+                    <span class="name">Lee Yun Sik</span>
+                    <button class="subscribers">1M subscribers</button>
+                </div>
+            </div>
+            <button class="subscribe">
+                subscribe
+            </button>
+
+        </div>
+    </section>
+    <section class="upNext">
+        <span class="title">Up next</span>
+        <ul>
+            <li class="item">
+                <!-- <img src="../images/mokoko.gif" alt=""> -->
+                <div class="img"><img src="../images/mokoko.gif" alt=""></div>
+                <div class="info">
+                    <span class="title">프론트엔드 개발자 입문편: HTML, CSS, Javascript</span>
+                    <span class="name">lee</span>
+                    <span class="views">100k</span>
+                </div>
+                <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+            </li>
+            <li class="item">
+                <div class="img"><img src="../images/mokoko.gif" alt=""></div>
+                <div class="info">
+                    <span class="title">프론트엔드 개발자 입문편: HTML, CSS, Javascript</span>
+                    <span class="name">lee</span>
+                    <span class="views">100k</span>
+                </div>
+                <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+            </li>
+            <li class="item">
+                <div class="img"><img src="../images/mokoko.gif" alt=""></div>
+                <div class="info">
+                    <span class="title">프론트엔드 개발자 입문편: HTML, CSS, Javascript</span>
+                    <span class="name">lee</span>
+                    <span class="views">100k</span>
+                </div>
+                <button class="moreBtn"><i class="fas fa-ellipsis-v"></i></button>
+            </li>
+        </ul>
+    </section></div>
+    
+</body>
+<!-- <script src="7.js"></script> -->
+</html>
