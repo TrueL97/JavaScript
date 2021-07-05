@@ -5,16 +5,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 50px;
 }
 
 .canvas {
     width: 600px;
     height: 600px;
     background-color: white;
-    border-radius: 15px;
     /* 모서리부분 */
-    padding: 50px;
-
+    border-radius: 15px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -28,6 +27,22 @@ body {
 .controls .controls_btns {
     margin-bottom: 30px;
 }
+
+.controls button {
+    all: nuset;
+    cursor: pointer;
+    background-color: white;
+    padding: 5px 0px;
+    width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 2px solid rgba(177, 49, 49, 0.2);
+    color: rgba(0, 0, 0, 0.7);
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
 .controls .controls_colors {
     display: flex;
 }
@@ -36,4 +51,8 @@ body {
     height: 50px;
     border-radius: 25px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.controls .controls_range {
+    margin-bottom: 30px;
 }
