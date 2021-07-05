@@ -101,6 +101,6 @@ function handleOnline() {
 window.addEventListener("offline", handleOffline);
 window.addEventListener("online", handleOnline);
 
-//const aac=prompt("ask") //prompt 유저에게 뭐를 물어볼 수 있는 언어 엄청 오래된 스크립트여서 이제 쓰지 않음
+//const aac=prompt("ask") //prompt 유저에게 뭐를 물어볼 수 있는 언어 엄청 오래된 스크립트여서 이제 쓰지 않
 
 //console.log(aac);
