@@ -1,28 +1,86 @@
 import React from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 class App extends React.Component {
     state = {
-        count: 0,
+        isLoading: true,
+        movies: [{}, {}],
     };
-    add = () => {
-        console.log("add");
+    getMovies = async () => {
+        const movies = await axios.get("https://yts-proxy.nomadcoders1.now.sh/list_movies.json"); //axops 는 그렇게 빠르지 않으므로 componentDidMount함수가 끝날때까지 우리가 기다려야한다
     };
-    minus = () => {
-        console.log("minus");
-    };
+    componentDidMount() {
+        this.getMovies();
+    }
     render() {
-        return (
-            <div>
-                <h1>Im a class component {this.state.count}</h1>
-                <button onClick={this.add}>Add</button>
-                <button>Minus</button>
-            </div>
-        ); //react는 자동적으로 나의 class component의 render method를 실행한다
+        const { isLoading } = this.state;
+        return <div>{isLoading ? "Loading..." : "we are ready"}</div>;
     }
 }
-
 export default App;
+
+// class App extends React.Component {
+//     state = {
+//         isLoading: true,
+//         movies: [{}, {}],
+//     };
+//     componentDidMount() {
+//         //render 호출 후에 componentDidMount 함수가 호출된다
+//         setTimeout(() => {
+//             this.setState({ isLoading: false, book: true });
+//         }, 6000);
+//         axios.
+//     }
+//     render() {
+//         const { isLoading } = this.state;
+//         return <div>{isLoading ? "Loading..." : "we are ready"}</div>;
+//     }
+// }
+
+//export default App;
+
+// class App extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         console.log("hello");
+//     }
+//     state = {
+//         count: 0,
+//     };
+
+//     add = () => {
+//         this.setState((current) => ({
+//             count: current.count + 1,
+//         })); //setState를 사용하면 호출될때마다 새state와 함께 render function이호출된다
+//     };
+//     minus = () => {
+//         this.setState((current) => ({
+//             count: current.count - 1,
+//         })); //setState를 사용하면 호출될때마다 새state와 함께 render function이호출된다
+//     };
+//     componentDidMount() {
+//         console.log("componentDidMount");
+//     }
+//     componentDidUpdate() {
+//         console.log("i just updated");
+//     }
+//     componentWillUnmount() {
+//         console.log("goodbye, reuel world");
+//     }
+//     render() {
+//         console.log("i am rendering");
+//         return (
+//             <div>
+//                 <h1>Im a class component {this.state.count}</h1>
+//                 <button onClick={this.add}>Add</button>
+//                 <button onClick={this.minus}>Minus</button>
+//             </div>
+//         ); //react는 자동적으로 나의 class component의 render method를 실행한다
+//     }
+// }
+
+// export default App;
 
 // const foodILike = [
 //     { id: 1, name: "Kimchi", image: "https://kstory365.files.wordpress.com/2015/01/kimchi-01-cabbage.jpg", rating: 5 },
