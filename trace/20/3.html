@@ -9,10 +9,24 @@
       target.style.backgroundColor = 'black';
       target.style.color = 'white';
       this.value = 'day';
+
+      var alist = document.querySelectorAll('a');
+      var i = 0;
+      while(i < alist.length){
+        alist[i].style.color = 'powderblue';
+        i = i + 1;
+      }
     } else {
       target.style.backgroundColor = 'white';
       target.style.color = 'black';
       this.value = 'night';
+
+      var alist = document.querySelectorAll('a');
+      var i = 0;
+      while(i < alist.length){
+        alist[i].style.color = 'blue';
+        i = i + 1;
+      }
     }
   "
 />
@@ -29,5 +43,5 @@
     programs, including video games. The majority of websites employ it, and all modern web browsers support it without
     the need for plug-ins by means of a built-in JavaScript engine. Each of the many JavaScript engines represent a
     different implementation of JavaScript, all based on the ECMAScript specification, with some engines not supporting
-    the spec fully, and with many engines supporting additional featur es beyond ECMA.
+    the spec fully, and with many engines supporting additional features beyond ECMA.
 </p>
