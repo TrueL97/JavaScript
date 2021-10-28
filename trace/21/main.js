@@ -19,7 +19,8 @@ var app = http.createServer(function (request, response) {
     }
 
     response.writeHead(200);
-    var template = `<!doctype html>
+    fs.readFile(`data/${queryData}`, "utf8", function (description, data) {
+        var template = `<!doctype html>
     <html>
     <head>
       <title>WEB1 - ${title}</title>
@@ -41,6 +42,7 @@ var app = http.createServer(function (request, response) {
     </html>
     `;
 
-    response.end(template);
+        response.end(template);
+    });
 });
 app.listen(3000);
