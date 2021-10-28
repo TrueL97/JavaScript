@@ -21,7 +21,7 @@ nicoInfo.gender = "Female"
 
 console.log(nicoInfo.gender);
 
-console.log(nicoInfo);
+console.log(nicoIn fo);
 
 console.log(nicoInfo,console);
 
