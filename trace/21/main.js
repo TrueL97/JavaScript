@@ -3,7 +3,8 @@ var fs = require("fs");
 var url = require("url");
 var qs = require("querystring");
 //pm2 start main.js --watch, pm2 log, pm2 monit
-function templateHTML(title, list, body) {
+function templateHTML(title, list, body, control) {
+    console.log(title, body);
     return `
   <!doctype html>
     <html>
@@ -14,8 +15,7 @@ function templateHTML(title, list, body) {
     <body>
       <h1><a href="/">WEB</a></h1>
       ${list}
-      <a href="/create">create</a>
-      <h2>${title}</h2>
+      ${control}
       <p>${body}</p>
       
     </body>
@@ -36,13 +36,14 @@ function templateList(filelist) {
 
 var app = http.createServer(function (request, response) {
     var _url = request.url; //?id=html
-
     var baseURL = "http://" + request.headers.host + "/"; //http://localhost:3000/
     var myURL = new URL(request.url, baseURL);
     const pathname = myURL.pathname;
     const queryData = myURL.searchParams.get("id");
+
     var title = queryData;
     console.log(pathname);
+
     // if (_url == "/") {
     //     _url = "/index.html";
     //     title = "welcome ";
@@ -56,16 +57,17 @@ var app = http.createServer(function (request, response) {
                 var title = "welcome";
                 var description = "hello, node.js";
                 list = templateList(filelist);
-                var template = templateHTML(title, list, `<h2>${description}</h2>`);
+                var template = templateHTML(title, list, `<h2>${title}</h2>${description}`, `<a href="/create">create</a>`);
                 response.writeHead(200);
                 response.end(template);
             });
         } else {
             fs.readdir("./data", function (error, filelist) {
+                console.log(queryData);
                 fs.readFile(`data/${queryData}`, "utf8", function (err, description) {
                     var title = queryData;
                     var list = templateList(filelist);
-                    var template = templateHTML(title, list, `<h2>${title}</h2>${description}`);
+                    var template = templateHTML(title, list, `<h2>${title}</h2>${description}`, `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`);
                     response.writeHead(200);
                     response.end(template);
                 });
@@ -79,7 +81,7 @@ var app = http.createServer(function (request, response) {
                 title,
                 list,
                 `
-            <form action="http://localhost:3000/create_process" method="post">
+            <form action="/create_process" method="post">
             <p><input type="text" name="title" placeholder="title" placeholder="title"></p>
             <p>
               <textarea name="description" placeholder="description"></textarea>
@@ -87,7 +89,8 @@ var app = http.createServer(function (request, response) {
             <p>
               <input type="submit">
             </p>
-            `
+            `,
+                ""
             );
             response.writeHead(200);
             response.end(template);
@@ -109,6 +112,55 @@ var app = http.createServer(function (request, response) {
                 console.log("The file has been saved!");
                 response.writeHead(302, { Location: `/?id=${title}` });
                 response.end();
+            });
+        });
+    } else if (pathname === "/update") {
+        fs.readdir("./data", function (error, filelist) {
+            console.log(queryData);
+            fs.readFile(`data/${queryData}`, "utf8", function (err, description) {
+                var title = queryData;
+                var list = templateList(filelist);
+                var template = templateHTML(
+                    title,
+                    list,
+                    `
+                <form action="/update_process" method="post">
+                <input type="hidden" type="text" name="id" value="${title}">
+            <p><input type="text" name="title" placeholder="title" placeholder="title" value="${title}"></p>
+            <p>
+              <textarea name="description" placeholder="description">${description}</textarea>
+            </p>
+            <p>
+              <input type="submit">
+            </p>
+                `,
+                    `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`
+                );
+                response.writeHead(200);
+                response.end(template);
+            });
+        });
+    } else if (pathname === "/update_process") {
+        var body = "";
+
+        request.on("data", function (data) {
+            body = body + data;
+            // console.log(data);
+        });
+        request.on("end", function () {
+            var post = qs.parse(body);
+            // console.log(body); title=1&description=12
+            // console.log(post.title);
+            var title = post.title;
+            var id = post.id;
+            var description = post.description;
+            fs.rename(`data/${id}`, `data/${title}`, function (error) {
+                fs.writeFile(`data/${title}`, description, "utf8", (err) => {
+                    if (err) throw err;
+                    console.log("The file has been saved!");
+                    response.writeHead(302, { Location: `/?id=${title}` });
+                    response.end();
+                });
             });
         });
     } else {
