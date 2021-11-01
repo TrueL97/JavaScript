@@ -3,26 +3,9 @@ var fs = require("fs");
 var url = require("url");
 var qs = require("querystring");
 //pm2 start main.js --watch, pm2 log, pm2 monit
-function templateHTML(title, list, body, control) {
-    console.log(title, body);
-    return `
-  <!doctype html>
-    <html>
-    <head>
-      <title>WEB1 - ${title}</title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-      <h1><a href="/">WEB</a></h1>
-      ${list}
-      ${control}
-      <p>${body}</p>
-      
-    </body>
-    </html>
-    `;
-}
 
+var template = require("./lib/template");
+// console.log(template);
 function templateList(filelist) {
     var list = "<ul>";
     var i = 0;
@@ -56,28 +39,45 @@ var app = http.createServer(function (request, response) {
             fs.readdir("./data", function (error, filelist) {
                 var title = "welcome";
                 var description = "hello, node.js";
-                list = templateList(filelist);
-                var template = templateHTML(title, list, `<h2>${title}</h2>${description}`, `<a href="/create">create</a>`);
+
+                // list = templateList(filelist);
+                // var template = templateHTML(title, list, `<h2>${title}</h2>${description}`, `<a href="/create">create</a>`);
+                // response.writeHead(200);
+                // response.end(template);
+
+                list = template.List(filelist);
+                var html = template.HTML(title, list, `<h2>${title}</h2>${description}`, `<a href="/create">create</a>`);
                 response.writeHead(200);
-                response.end(template);
+                response.end(html);
             });
         } else {
             fs.readdir("./data", function (error, filelist) {
                 console.log(queryData);
                 fs.readFile(`data/${queryData}`, "utf8", function (err, description) {
                     var title = queryData;
-                    var list = templateList(filelist);
-                    var template = templateHTML(title, list, `<h2>${title}</h2>${description}`, `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`);
+                    var list = template.List(filelist);
+                    var html = template.HTML(
+                        title,
+                        list,
+                        `<h2>${title}</h2>${description}`,
+                        `
+                    <a href="/create">create</a>
+                    <a href="/update?id=${title}">update</a>
+                    <form action="delete_process" method="post" onsubmit="asd">
+                        <input type="hidden" name="id" value="${title}">
+                        <input type="submit" value="delete">
+                    </form>`
+                    );
                     response.writeHead(200);
-                    response.end(template);
+                    response.end(html);
                 });
             });
         }
     } else if (pathname === "/create") {
         fs.readdir("./data", function (error, filelist) {
             var title = "WEB - create";
-            list = templateList(filelist);
-            var template = templateHTML(
+            list = template.List(filelist);
+            var html = template.HTML(
                 title,
                 list,
                 `
@@ -93,7 +93,7 @@ var app = http.createServer(function (request, response) {
                 ""
             );
             response.writeHead(200);
-            response.end(template);
+            response.end(html);
         });
     } else if (pathname === "/create_process") {
         var body = "";
@@ -119,8 +119,8 @@ var app = http.createServer(function (request, response) {
             console.log(queryData);
             fs.readFile(`data/${queryData}`, "utf8", function (err, description) {
                 var title = queryData;
-                var list = templateList(filelist);
-                var template = templateHTML(
+                var list = template.List(filelist);
+                var html = template.HTML(
                     title,
                     list,
                     `
@@ -137,7 +137,7 @@ var app = http.createServer(function (request, response) {
                     `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`
                 );
                 response.writeHead(200);
-                response.end(template);
+                response.end(html);
             });
         });
     } else if (pathname === "/update_process") {
@@ -163,10 +163,25 @@ var app = http.createServer(function (request, response) {
                 });
             });
         });
+    } else if (pathname === "/delete_process") {
+        var body = "";
+
+        request.on("data", function (data) {
+            body = body + data;
+            // console.log(data);
+        });
+        request.on("end", function () {
+            var post = qs.parse(body);
+            var id = post.id;
+            fs.unlink(`data/${id}`, function (err) {
+                response.writeHead(302, { Location: `/` });
+                response.end();
+            });
+        });
     } else {
         response.writeHead(404);
         response.end("Nor found");
     }
 });
 //리다이렉션: 어떤페이지로 왔을때 어떤 처리를 한다음에 다른 페이지로 팅겨버리는것
-app.listen(3000);
+app.listen(3001);
