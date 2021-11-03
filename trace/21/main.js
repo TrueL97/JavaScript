@@ -4,6 +4,7 @@ var url = require("url");
 var qs = require("querystring");
 var path = require("path");
 var sanitizeHtml = require("sanitize-html");
+var mysql = require("mysql");
 //pm2 start main.js --watch, pm2 log, pm2 monit
 
 var template = require("./lib/template");
