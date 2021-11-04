@@ -182,7 +182,7 @@ var app = http.createServer(function (request, response) {
         request.on("end", function () {
             var post = qs.parse(body);
             var id = post.id;
-            var filteredId = path.parse(id).baseURL;
+            var filteredId = path.parse(id).name;
             fs.unlink(`data/${filteredId}`, function (err) {
                 response.writeHead(302, { Location: `/` });
                 response.end();
@@ -194,4 +194,4 @@ var app = http.createServer(function (request, response) {
     }
 });
 //리다이렉션: 어떤페이지로 왔을때 어떤 처리를 한다음에 다른 페이지로 팅겨버리는것
-app.listen(3001);
+app.listen(3002);
